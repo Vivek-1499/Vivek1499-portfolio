@@ -44,6 +44,10 @@ function AppContent() {
 
       <div className="film-grain-container" />
 
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+
       {/* Custom Desktop Focus Cursor */}
       <CustomCursor />
 
@@ -62,7 +66,7 @@ function AppContent() {
         <Navbar />
 
         {/* Main Page Content wrapper */}
-        <main className="flex-grow">
+        <main id="main-content" className="flex-grow" tabIndex={-1}>
           <Suspense
             fallback={
               <div className="min-h-screen bg-studio-black flex items-center justify-center">

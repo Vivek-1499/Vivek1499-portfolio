@@ -29,12 +29,12 @@ export function About() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-16">
-          <span className="mono-code text-[11px] tracking-[0.25em] text-studio-amber uppercase block mb-2">
-            CHAPTER 01 // IDENTITY
-          </span>
-          <h1 className="title-serif text-4xl md:text-6xl font-bold text-studio-cream">
-            The Person Behind the Code
-          </h1>
+            <span className="kicker block mb-3">
+              About
+            </span>
+            <h1 className="title-serif text-4xl md:text-6xl text-studio-cream">
+              Vivek, off the resume
+            </h1>
           <div className="w-20 h-[2px] bg-studio-amber mt-4" />
         </div>
 
@@ -43,30 +43,30 @@ export function About() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             {/* Screenplay block */}
-            <div className="lg:col-span-8 bg-studio-card/65 border border-studio-border p-6 sm:p-8 rounded-lg shadow-2xl space-y-5 font-mono text-[11px] text-studio-cream/90 leading-relaxed max-w-2xl">
-              <div className="text-center text-studio-amber uppercase text-[9px] tracking-[0.3em] border-b border-studio-border/50 pb-3 mb-4 select-none flex items-center justify-center gap-2">
+            <div className="lg:col-span-8 border border-studio-border p-6 sm:p-8 space-y-5 text-studio-cream/90 leading-relaxed max-w-2xl">
+              <div className="text-studio-amber text-xs font-mono border-b border-studio-border/50 pb-3 mb-4 flex items-center gap-2">
                 <StudioMic size={14} />
-                <span>DIRECTOR'S LOG // ORIGIN STORY</span>
+                <span>Director's log</span>
               </div>
 
               <div className="space-y-4">
-                <p className="text-studio-cream font-sans text-xs">
-                  Hey, I'm Vivek. I'm a B.Tech IT graduate (Class of 2026) who loves building real-time applications and full-stack systems.
+                <p className="text-studio-cream font-sans text-base">
+                  Hey, I'm Vivek. I'm a B.Tech IT student at KJ Somaiya (Class of 2026, GPA 8.75) who likes building real-time applications and full-stack systems.
                 </p>
 
-                <p className="text-studio-muted font-sans text-xs">
-                  My experience focuses on shipping products that need to work under pressure. During my internship at <span className="text-studio-amber font-semibold">Mehery Soccom</span>, I architected a production P2P video-calling platform using WebRTC and Socket.io. Juggling ICE negotiation, STUN/TURN fallbacks, and network transitions felt a bit like directing <em>Inception</em>—coordinating multiple layers of connection to make sure the call never drops. We got setups down to sub-second speeds and cut React state re-renders by 35%.
+                <p className="text-studio-muted font-sans text-base">
+                  During my internship at <span className="text-studio-cream font-medium">Mehery Soccom</span>, I architected a production P2P video-calling platform using Vue.js and Node.js. ICE negotiation, STUN/TURN fallbacks, and network transitions had to stay coordinated or the call dropped. We got setups down to sub-second speeds and cut Vue Composition API re-renders by about 35%.
                 </p>
 
-                <p className="text-studio-muted font-sans text-xs">
-                  Before that, at <span className="text-studio-amber font-semibold">CommonWealth</span>, I worked on GPMS, a public-sector platform serving thousands of users. I built and shipped 15+ reusable React components (cutting UI dev time by 30%) and established Git branching standards that reduced PR review times from 48 hours to under 12.
+                <p className="text-studio-muted font-sans text-base">
+                  Before that, at <span className="text-studio-cream font-medium">CommonWealth</span>, I worked on GPMS, a public-sector platform. I built and shipped 15+ reusable React components (cutting UI dev time by ~30%) and established Git branching standards that reduced PR review times from 48 hours to under 12.
                 </p>
 
-                <p className="text-studio-muted font-sans text-xs">
-                  When I'm not interning, I build side projects to solve my own problems. I built <span className="text-studio-cream font-semibold">Saveior</span>, a finance tracker that uses Gemini Vision to auto-extract receipt data and eliminate manual entry, and <span className="text-studio-cream font-semibold">SoMo</span>, a full-stack MERN social platform with sub-100ms real-time engagement.
+                <p className="text-studio-muted font-sans text-base">
+                  When I'm not interning, I build side projects to solve my own problems. I built <span className="text-studio-cream font-medium">Saveior</span>, a finance tracker that uses Gemini Vision to auto-extract receipt data, <span className="text-studio-cream font-medium">SoMo</span>, a MERN social platform with sub-100ms real-time engagement, a <span className="text-studio-cream font-medium">MySQL data warehouse</span> (Medallion / star schema), and a <span className="text-studio-cream font-medium">LangGraph agent</span> that grades retrieved docs before it answers.
                 </p>
 
-                <p className="text-studio-muted font-sans text-xs">
+                <p className="text-studio-muted font-sans text-base">
                   Outside of coding, I'm a cinematography enthusiast, a playlist curator, and a constant reader of technical docs.
                 </p>
               </div>

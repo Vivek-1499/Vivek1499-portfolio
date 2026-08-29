@@ -7,7 +7,7 @@ import { SEO } from '../components/SEO';
 
 export function Projects() {
   const [filter, setFilter] = useState<string>('All');
-  
+
   const categories = [...projectCategories];
 
   const filteredProjects = filter === 'All'
@@ -44,11 +44,10 @@ export function Projects() {
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-4 py-2 border rounded text-xs tracking-widest uppercase cursor-pointer transition-all duration-300 font-mono ${
-                filter === cat
-                  ? 'bg-studio-amber border-studio-amber text-studio-black font-semibold'
-                  : 'bg-studio-dark border-studio-border text-studio-cream/70 hover:border-studio-amber/60 hover:text-studio-amber'
-              }`}
+              className={`px-4 py-2 border rounded text-xs tracking-widest uppercase cursor-pointer transition-all duration-300 font-mono ${filter === cat
+                ? 'bg-studio-amber border-studio-amber text-studio-black font-semibold'
+                : 'bg-studio-dark border-studio-border text-studio-cream/70 hover:border-studio-amber/60 hover:text-studio-amber'
+                }`}
             >
               {cat}
             </button>
@@ -56,7 +55,7 @@ export function Projects() {
         </section>
 
         {/* Projects Celluloid Reel Grid */}
-        <motion.section 
+        <motion.section
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
@@ -73,7 +72,7 @@ export function Projects() {
               >
                 {/* Sprocket Film Frame Image Placeholder */}
                 <div className="h-44 bg-studio-black relative overflow-hidden border-b border-studio-black flex flex-col justify-end p-5">
-                  
+
                   {/* Photo frame details */}
                   <div className="absolute top-2 left-2 right-2 flex justify-between text-[7px] font-mono text-studio-muted pointer-events-none select-none">
                     <span>REEL: {project.id.toUpperCase()}</span>
@@ -82,9 +81,9 @@ export function Projects() {
 
                   {/* Exposed Celluloid Film Negative Background or Project Image */}
                   {project.imageUrl ? (
-                    <img 
-                      src={project.imageUrl} 
-                      alt={project.title} 
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
                       className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-105 transition-all duration-500 border-b border-studio-border/30"
                     />
                   ) : (
@@ -100,13 +99,13 @@ export function Projects() {
                   <div className="z-10 absolute top-4 right-4 px-2 py-0.5 border border-studio-amber/40 bg-studio-black/95 rounded text-[8px] font-mono tracking-widest text-studio-amber uppercase">
                     {project.category}
                   </div>
-                  
+
                   {/* Lower titles in film boundary */}
                   <div className="z-10 pointer-events-none">
                     <span className="mono-code text-[8px] tracking-[0.2em] text-studio-amber uppercase mb-0.5 block font-semibold">
                       {project.duration} / {project.role}
                     </span>
-                    <h3 className="title-serif text-lg font-bold text-studio-cream">
+                    <h3 className="title-serif text-2xl font-bold text-studio-cream">
                       {project.title}
                     </h3>
                   </div>

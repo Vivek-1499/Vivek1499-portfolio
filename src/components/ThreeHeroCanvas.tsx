@@ -27,7 +27,7 @@ function DustParticles({ count = 800 }) {
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color="#8b5cf6"
+        color="#c4922a"
         size={0.03}
         sizeAttenuation={true}
         depthWrite={false}
@@ -58,7 +58,7 @@ function ProjectorBeam() {
       <cylinderGeometry args={[0.1, 4, 12, 32, 1, true]} />
       <meshBasicMaterial
         transparent
-        color="#f43f5e"
+        color="#c4922a"
         opacity={0.08}
         side={THREE.DoubleSide}
         blending={THREE.AdditiveBlending}

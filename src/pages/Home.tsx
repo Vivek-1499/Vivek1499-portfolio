@@ -1,9 +1,10 @@
 import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Code, Award, ChevronRight, Play, FileText } from 'lucide-react';
+import { ArrowRight, Code, Award, ChevronRight, Play, FileText, Sparkles } from 'lucide-react';
 import { personalInfo, projects, internships, skills, achievements } from '../data/portfolioData';
 import { SEO } from '../components/SEO';
+import { ProjectMedia } from '../components/ProjectMedia';
 import { usePortfolioPreferences } from '../context/PortfolioPreferences';
 
 const ThreeHeroCanvas = lazy(() => import('../components/ThreeHeroCanvas'));
@@ -91,7 +92,19 @@ export function Home() {
     <div className="relative min-h-screen bg-studio-black overflow-hidden page-enter-opacity">
       <SEO
         title="Home"
-        description="Vivek Pandit's personal portfolio. Fusing engineering depth with interactive, cinematic storytelling. Exploring WebRTC, Full Stack systems, and software craftsmanship."
+        description="Vivek Kumar Pandit — Full Stack Developer in Mumbai. WebRTC at Mehery, GPMS at CommonWealth, plus SoMo, Saveior, a MySQL warehouse, and a LangGraph agent."
+        ogType="profile"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: personalInfo.name,
+          jobTitle: personalInfo.title,
+          email: personalInfo.email,
+          telephone: personalInfo.phone,
+          address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
+          url: 'https://github.com/Vivek-1499',
+          sameAs: [personalInfo.github, personalInfo.linkedin],
+        }}
       />
 
       {/* --- HERO SECTION --- */}
@@ -176,7 +189,7 @@ export function Home() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: easing }}
-                className="title-serif text-5xl md:text-8xl tracking-tight text-studio-cream mb-4 font-bold"
+                className="title-serif text-5xl md:text-7xl text-studio-cream mb-4"
               >
                 {personalInfo.name}
               </motion.h1>
@@ -185,7 +198,7 @@ export function Home() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1, ease: easing }}
-                className="mono-code text-xs md:text-sm tracking-widest text-studio-amber uppercase mb-6 font-semibold"
+                className="mono-code text-sm text-studio-amber mb-6"
               >
                 {personalInfo.title}
               </motion.p>
@@ -194,7 +207,7 @@ export function Home() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2, ease: easing }}
-                className="text-base md:text-xl text-studio-muted max-w-2xl mb-10 leading-relaxed font-sans"
+                className="text-base md:text-lg text-studio-muted max-w-2xl mb-10 leading-relaxed font-sans text-left sm:text-center"
               >
                 {personalInfo.tagline}
               </motion.p>
@@ -204,18 +217,29 @@ export function Home() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3, ease: easing }}
-                className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+                className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto flex-wrap justify-center"
               >
+                {personalInfo.aiAssistantUrl && (
+                  <a
+                    href={personalInfo.aiAssistantUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-studio-amber via-studio-gold to-studio-amber text-studio-black font-semibold text-xs tracking-widest uppercase rounded hover:brightness-110 shadow-lg shadow-studio-amber/20 transition-all duration-300 interactive-hover group"
+                  >
+                    <Sparkles className="w-4 h-4 fill-studio-black/20 group-hover:rotate-12 transition-transform duration-300 animate-pulse" />
+                    <span>Ask AI Assistant</span>
+                  </a>
+                )}
                 <Link
                   to="/about"
-                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-studio-amber text-studio-black font-semibold text-xs tracking-widest uppercase rounded hover:bg-studio-gold transition-colors duration-300 interactive-hover"
+                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 bg-studio-dark border border-studio-border text-studio-cream font-semibold text-xs tracking-widest uppercase rounded hover:border-studio-amber/60 hover:text-studio-amber transition-all duration-300 interactive-hover"
                 >
-                  <span>Explore My Story</span>
+                  <span>About</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   to="/projects"
-                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-studio-border text-studio-cream font-semibold text-xs tracking-widest uppercase rounded hover:bg-studio-border/30 hover:border-studio-amber/60 transition-all duration-300 interactive-hover"
+                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 border border-studio-border text-studio-cream font-semibold text-xs tracking-widest uppercase rounded hover:bg-studio-border/30 hover:border-studio-amber/60 transition-all duration-300 interactive-hover"
                 >
                   <span>View Projects</span>
                 </Link>
@@ -224,7 +248,7 @@ export function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 border border-studio-border/50 text-studio-muted font-semibold text-xs tracking-widest uppercase rounded hover:text-studio-cream hover:border-studio-amber/40 transition-all duration-300 interactive-hover"
+                  className="flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 border border-studio-border/50 text-studio-muted font-semibold text-xs tracking-widest uppercase rounded hover:text-studio-cream hover:border-studio-amber/40 transition-all duration-300 interactive-hover"
                 >
                   <FileText className="w-4 h-4" />
                   <span>Download Resume</span>
@@ -237,17 +261,17 @@ export function Home() {
       </section>
 
       {/* --- SCENE 01: ABOUT PREVIEW --- */}
-      <section className="relative py-24 px-6 border-t border-studio-border bg-[#090909]/40">
+      <section className="relative py-24 px-6 border-t border-studio-border">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <motion.div {...fadeInUp} className="lg:col-span-5">
-            <span className="mono-code text-[11px] tracking-[0.25em] text-studio-amber uppercase block mb-2">
-              SCENE 01 // OVERVIEW
+            <span className="kicker block mb-3">
+              Overview
             </span>
-            <h2 className="title-serif text-3xl md:text-5xl font-bold text-studio-cream mb-6">
-              The Journey of a Product Mindset
+            <h2 className="title-serif text-3xl md:text-5xl text-studio-cream mb-6">
+              Internships, then systems I built myself
             </h2>
             <p className="text-studio-muted text-base leading-relaxed mb-6 font-sans">
-              I view coding as digital craftsmanship. It's not just about selecting frameworks; it's about translating ideas into robust solutions. My journey has taken me from local web experiments to orchestrating production-level communications pipelines.
+              I interned on a P2P video stack (Vue + WebRTC) and a public-sector UI (React + design tokens). The rest is personal work: a social app with Socket.io, a finance tracker that reads receipts, a MySQL warehouse, and a LangGraph agent that grades its own retrieval.
             </p>
             <Link
               to="/about"
@@ -260,7 +284,7 @@ export function Home() {
 
           <motion.div
             {...fadeInUp}
-            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-studio-dark/50 p-8 rounded-lg border border-studio-border/50 backdrop-blur-sm"
+            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 border-l border-studio-border pl-0 sm:pl-8"
           >
             <div>
               <h3 className="mono-code text-xs text-studio-amber uppercase mb-2 tracking-wider">Curiosity First</h3>
@@ -275,8 +299,8 @@ export function Home() {
               </p>
             </div>
             <div className="sm:col-span-2 border-t border-studio-border/40 pt-6 mt-2 flex flex-wrap gap-4 items-center justify-between">
-              <span className="text-xs text-studio-cream font-mono">Education: B.Tech IT — KJ Somaiya, Mumbai</span>
-              <span className="text-xs text-studio-amber font-mono">GPA: 8.52 / 10</span>
+              <span className="text-sm text-studio-cream font-sans">B.Tech IT — KJ Somaiya, Mumbai</span>
+              <span className="text-sm text-studio-amber font-mono">GPA 8.75 / 10</span>
             </div>
           </motion.div>
         </div>
@@ -287,11 +311,11 @@ export function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <motion.div {...fadeInUp}>
-              <span className="mono-code text-[11px] tracking-[0.25em] text-studio-amber uppercase block mb-2">
-                SCENE 02 // PRODUCTION ROLL
+              <span className="kicker block mb-3">
+                Projects
               </span>
-              <h2 className="title-serif text-3xl md:text-5xl font-bold text-studio-cream">
-                The Cinematic Reel
+              <h2 className="title-serif text-3xl md:text-5xl text-studio-cream">
+                Selected work
               </h2>
             </motion.div>
             <motion.div {...fadeInUp}>
@@ -299,7 +323,7 @@ export function Home() {
                 to="/projects"
                 className="flex items-center gap-1.5 px-5 py-2.5 bg-studio-dark border border-studio-border rounded text-xs tracking-widest uppercase text-studio-cream hover:border-studio-amber/60 hover:text-studio-amber transition-all duration-300"
               >
-                <span>View All Episodes</span>
+                <span>All projects</span>
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </motion.div>
@@ -357,34 +381,34 @@ export function Home() {
               viewport={{ once: true, margin: "-50px" }}
               className="flex gap-8 min-w-max px-2 py-4"
             >
-              {projects.map((project) => (
+              {projects.map((project, i) => (
                 <motion.div
                   key={project.id}
                   variants={{
                     initial: { opacity: 0, x: 50 },
                     whileInView: { opacity: 1, x: 0, transition: { duration: 0.6, ease: easing } }
                   }}
-                  className="film-frame w-[310px] sm:w-[350px] rounded flex flex-col justify-between overflow-hidden border border-studio-border shadow-2xl"
+                  className="film-frame w-[310px] sm:w-[380px] flex flex-col justify-between overflow-hidden border border-studio-border"
                 >
-                  {/* Sprocket Film Frame header */}
-                  <div className="h-40 bg-gradient-to-br from-studio-border/40 to-studio-black flex flex-col justify-end p-5 relative border-b border-studio-black">
-                    <div className="absolute top-4 right-4 px-2 py-0.5 border border-studio-amber/40 bg-studio-black/90 rounded text-[8px] font-mono tracking-widest text-studio-amber uppercase">
+                  <div className="h-44 relative border-b border-studio-border">
+                    <ProjectMedia project={project} eager={i === 0} sizes="380px" className="opacity-90" />
+                    <div className="absolute top-3 right-4 px-2 py-0.5 border border-studio-amber/40 bg-studio-black/90 text-[10px] font-mono text-studio-amber">
                       {project.category}
                     </div>
-                    <span className="mono-code text-[8px] tracking-[0.2em] text-studio-amber uppercase mb-1 font-semibold">
-                      {project.duration} / {project.role}
-                    </span>
-                    <h3 className="title-serif text-lg font-bold text-studio-cream">
-                      {project.title}
-                    </h3>
                   </div>
 
                   <div className="p-5 flex-grow flex flex-col justify-between bg-studio-dark/50">
-                    <p className="text-[10px] text-studio-amber/90 font-mono mb-2 leading-snug">
+                    <span className="mono-code text-[10px] text-studio-amber mb-1">
+                      {project.duration}
+                    </span>
+                    <h3 className="title-serif text-xl text-studio-cream mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-[11px] text-studio-amber/90 font-mono mb-2 leading-snug">
                       {project.impactMetric}
                     </p>
-                    <p className="text-[11px] text-studio-muted leading-relaxed mb-5 font-sans h-14 overflow-y-auto no-scrollbar">
-                      {project.description}
+                    <p className="text-sm text-studio-muted leading-relaxed mb-5 font-sans">
+                      {project.tagline}
                     </p>
 
                     <div>
@@ -401,7 +425,7 @@ export function Home() {
                         to={`/projects/${project.id}`}
                         className="flex items-center justify-between w-full py-2 border border-studio-border hover:border-studio-amber/40 rounded text-center text-[10px] tracking-widest uppercase text-studio-cream hover:text-studio-amber hover:bg-studio-black transition-all duration-300 font-semibold"
                       >
-                        <span className="pl-3">Explore Case Study</span>
+                        <span className="pl-3">Case study</span>
                         <ArrowRight className="w-3.5 h-3.5 pr-3 box-content" />
                       </Link>
                     </div>
@@ -414,15 +438,15 @@ export function Home() {
       </section>
 
       {/* --- SCENE 03: EXPERIENCE & TECH PREVIEW --- */}
-      <section className="relative py-24 px-6 border-y border-studio-border bg-[#090909]/40">
+      <section className="relative py-24 px-6 border-y border-studio-border">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Experience Timeline Snapshot */}
           <motion.div {...fadeInUp}>
-            <span className="mono-code text-[11px] tracking-[0.25em] text-studio-amber uppercase block mb-2">
-              SCENE 03 // CREDIBILITY
+            <span className="kicker block mb-3">
+              Experience
             </span>
-            <h2 className="title-serif text-2xl md:text-4xl font-bold text-studio-cream mb-8">
-              Professional Journey
+            <h2 className="title-serif text-2xl md:text-4xl text-studio-cream mb-8">
+              Internships
             </h2>
 
             <div className="space-y-6">
@@ -435,7 +459,7 @@ export function Home() {
                   <h3 className="text-sm font-bold text-studio-cream">
                     {job.role} <span className="text-studio-muted font-normal">at {job.company}</span>
                   </h3>
-                  <p className="text-xs text-studio-muted leading-relaxed mt-1.5 font-sans">
+                  <p className="text-sm text-studio-muted leading-relaxed mt-1.5 font-sans">
                     {job.overview}
                   </p>
                 </div>
@@ -454,15 +478,15 @@ export function Home() {
           {/* Toolkit Snapshot */}
           <motion.div {...fadeInUp} className="flex flex-col justify-between">
             <div>
-              <span className="mono-code text-[11px] tracking-[0.25em] text-studio-amber uppercase block mb-2">
-                SCENE 04 // TOOLKIT
-              </span>
-              <h2 className="title-serif text-2xl md:text-4xl font-bold text-studio-cream mb-8">
-                The Engineering Stack
-              </h2>
+            <span className="kicker block mb-3">
+              Stack
+            </span>
+            <h2 className="title-serif text-2xl md:text-4xl text-studio-cream mb-8">
+              What I actually use
+            </h2>
 
-              <p className="text-xs text-studio-muted leading-relaxed mb-8 font-sans">
-                I select frameworks based on performance, type safety, and product scalability constraints. Here is a breakdown of languages and libraries I rely on to build stable applications.
+              <p className="text-sm text-studio-muted leading-relaxed mb-8 font-sans">
+                Picked from internships and the four projects above — not a laundry list of every tutorial.
               </p>
 
               {/* Grid of categories */}
@@ -500,14 +524,14 @@ export function Home() {
       <section className="relative py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div {...fadeInUp} className="mb-12">
-            <span className="mono-code text-[11px] tracking-[0.25em] text-studio-amber uppercase block mb-2">
-              SCENE 05 // MILESTONES
+            <span className="kicker block mb-3">
+              Notes
             </span>
-            <h2 className="title-serif text-3xl md:text-5xl font-bold text-studio-cream mb-4">
-              Participations & Milestones
+            <h2 className="title-serif text-3xl md:text-5xl text-studio-cream mb-4">
+              Hackathon, school, certificates
             </h2>
-            <p className="text-studio-muted text-xs md:text-sm max-w-lg mx-auto font-sans leading-relaxed">
-              Hackathon participations, certifications, and education milestones from my journey.
+            <p className="text-studio-muted text-sm max-w-lg mx-auto font-sans leading-relaxed">
+              SIH 2023, Coursera certs, B.Tech IT at KJ Somaiya. Nothing inflated.
             </p>
           </motion.div>
 
@@ -525,7 +549,7 @@ export function Home() {
                   initial: { opacity: 0, y: 15 },
                   whileInView: { opacity: 1, y: 0 }
                 }}
-                className="bg-studio-dark/40 border border-studio-border p-6 rounded hover:border-studio-amber/40 transition-colors"
+                className="border border-studio-border p-6 hover:border-studio-amber/40 transition-colors"
               >
                 <div className="flex items-center gap-2 mb-3">
                   <Award className="w-4 h-4 text-studio-amber" />
@@ -619,20 +643,20 @@ export function Home() {
       </section>
 
       {/* --- SCENE 06: CALL TO ACTION --- */}
-      <section className="relative py-24 px-6 border-t border-studio-border bg-gradient-to-t from-studio-dark to-studio-black text-center">
+      <section className="relative py-24 px-6 border-t border-studio-border text-center">
         <div className="max-w-2xl mx-auto">
           <motion.div {...fadeInUp}>
-            <h2 className="title-serif text-3xl md:text-6xl font-bold text-studio-cream mb-6">
-              Let's Build the Next Scene.
+            <h2 className="title-serif text-3xl md:text-5xl text-studio-cream mb-6">
+              Hiring or building something real-time?
             </h2>
-            <p className="text-studio-muted text-xs md:text-sm mb-10 leading-relaxed font-sans max-w-md mx-auto">
-              Whether it is a high-performance system, a real-time media layer, or a custom full-stack pipeline, I would love to connect.
+            <p className="text-studio-muted text-base mb-10 leading-relaxed font-sans max-w-md mx-auto">
+              I am looking for Software / Backend / Full-Stack internship and entry-level roles. Email is faster than the form.
             </p>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-studio-amber text-studio-black font-semibold text-xs tracking-widest uppercase rounded hover:bg-studio-gold transition-colors duration-300 interactive-hover"
             >
-              <span>Initiate Conversation</span>
+              <span>Contact</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>

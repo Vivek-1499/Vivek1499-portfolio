@@ -1,3 +1,8 @@
+export interface ProjectGalleryItem {
+  src: string;
+  alt: string;
+}
+
 export interface ProjectDetail {
   problem: string;
   solution: string;
@@ -46,6 +51,8 @@ export interface Project {
   highlights: string[];
   detail: ProjectDetail;
   imageUrl?: string;
+  imageAlt?: string;
+  gallery?: ProjectGalleryItem[];
 }
 
 export interface Internship {
@@ -85,14 +92,15 @@ export const personalInfo = {
   title: "Full Stack Developer",
   tagline: "I'm Vivek, a Full Stack Developer who likes building systems that actually work. From a peer-to-peer video platform handling active network swaps to shipping accessible UI components for public-sector platforms, I focus on solving real engineering problems and keeping the architecture clean.",
   status: "Open to Work",
-  preferredRoles: ["Full Stack Developer", "Software Engineer", "Frontend Engineer"],
+  preferredRoles: ["Full Stack Developer", "Software Engineer", "Backend Engineer", "Frontend Engineer"],
   location: "Mumbai, India",
   phone: "+91 83694 19969",
   email: "vivek.pandit1499@gmail.com",
   github: "https://github.com/Vivek-1499",
   linkedin: "https://www.linkedin.com/in/vivek-pandit-368b012a7/",
-  resumeUrl: "/Resume.pdf",
-  introduction: "I'm an IT graduate who values working code over corporate buzzwords. I have hands-on experience working in agile teams across the full development lifecycle—whether it's debugging WebRTC signaling states, maintaining design token consistency across frontend components, or setting up background jobs for automated report generation. I focus on solving actual engineering problems with reliable architecture.",
+  resumeUrl: "/Vivek_Pandit_Resume.pdf",
+  aiAssistantUrl: "http://localhost:8501",
+  introduction: "I'm a B.Tech Information Technology student (KJ Somaiya, Class of 2026) who values working code over corporate buzzwords. Across two internships and several production-style projects I've built REST APIs, real-time services (WebSockets/WebRTC), and database-driven apps — including debugging WebRTC signaling states, keeping design tokens consistent across a public-sector UI, and wiring background jobs for automated reports.",
   musicNote: "Code by day, playlists by night — I build software with the same care I curate a setlist: pacing, flow, and knowing when to drop the beat.",
   favoriteGenres: ["Indie Rock", "Lo-Fi", "Classic Rock", "Alternate Pop"]
 };
@@ -101,27 +109,32 @@ export const journeyTimeline = [
   {
     year: "2022",
     title: "Engineering Foundations",
-    description: "Started B.Tech in Information Technology at KJ Somaiya College of Engineering. Built core CS fundamentals through DSA, OS, DBMS, and networking coursework."
+    description: "Started B.Tech in Information Technology at KJ Somaiya College of Engineering. Built core CS fundamentals through DSA, OS, DBMS, and networking coursework.",
+    expanded: "Started with programming architectures, HTTP request lifecycles, and a lot of late nights on layout bugs and JavaScript event listeners. Coursework in DSA, OS, DBMS, and networks is still the base I reach for when something in production doesn't make sense."
   },
   {
     year: "2023",
     title: "Smart India Hackathon",
-    description: "Participated in Smart India Hackathon 2023 — delivered a working AI traffic management prototype within a 36-hour timeline."
+    description: "Participated in Smart India Hackathon 2023 — delivered a working AI traffic management prototype within a 36-hour timeline.",
+    expanded: "First time shipping a working prototype under a 36-hour clock. Applied AI/ML ideas from class to a traffic problem and learned how much you can cut when the demo has to run, not just look good in slides."
   },
   {
     year: "2024",
     title: "MeshCraft — Design to Code",
-    description: "Frontend Developer Intern at MeshCraft. Produced WCAG 2.1-compliant Figma prototypes and partnered with engineers to compress design-to-code iteration."
+    description: "Frontend Developer Intern at MeshCraft. Produced WCAG 2.1-compliant Figma prototypes and partnered with engineers to compress design-to-code iteration.",
+    expanded: "Produced accessibility-first Figma prototypes covering full user journeys, then sat with frontend engineers so the handoff actually converted to CSS and React. Baking WCAG 2.1 in before engineering cut QA remediations later."
   },
   {
     year: "2025",
     title: "CommonWealth & Personal Projects",
-    description: "Software Engineer Intern at CommonWealth on GPMS. Built SoMo and Saveior — full-stack and AI-powered apps with real-time and production-quality infra patterns."
+    description: "Software Engineer Intern at CommonWealth on GPMS. Built SoMo and Saveior — full-stack and AI-powered apps with real-time and production-quality infra patterns.",
+    expanded: "On GPMS I shipped reusable React components with shared design tokens in a 6-engineer Agile team. Off hours I built SoMo (MERN + Socket.io) and Saveior (Next.js + Gemini Vision + Inngest) to practice real-time and production infra patterns myself."
   },
   {
     year: "2026",
     title: "Mehery & Graduation",
-    description: "Full-Stack Developer Intern at Mehery Soccom — architected a production P2P video-calling platform. Graduating B.Tech IT (GPA 8.52/10)."
+    description: "Full-Stack Developer Intern at Mehery Soccom — architected a production P2P video-calling platform. Graduating B.Tech IT (GPA 8.75/10).",
+    expanded: "At Mehery I designed the WebRTC signaling layer and ICE negotiation from scratch in Vue.js + Node.js, including automatic peer reconnection on network changes. Looking for an entry-level Software / Backend / Full-Stack role where that kind of systems work continues."
   }
 ];
 
@@ -135,7 +148,7 @@ export const internships: Internship[] = [
     techStack: ["Vue.js", "Node.js", "WebRTC", "Socket.io", "STUN/TURN"],
     responsibilities: [
       "Architected a production P2P video-calling platform supporting 10+ concurrent peers with sub-second connection setup.",
-      "Designed and implemented the WebRTC signaling layer and ICE negotiation service from scratch, enabling automatic peer reconnection on network changes.",
+      "Designed and implemented the WebRTC signaling layer and ICE negotiation service from scratch, enabling seamless call setup and teardown with automatic peer reconnection on network changes.",
       "Optimised Vue Composition API reactive state for live call sessions, reducing unnecessary re-renders by ~35% and improving frame-rate consistency under load."
     ],
     challenge: "Maintaining video frame-rate consistency and reliable connections when peers switch networks mid-call.",
@@ -178,7 +191,11 @@ export const projects: Project[] = [
   {
     id: "somo",
     title: "SoMo — Social Media Platform",
-    imageUrl: "", // Add path to your project image here (e.g. "/projects/somo.jpg")
+    imageUrl: "/images/projects/somo/hero.png",
+    imageAlt: "SoMo feed diagram: posts, real-time likes, and a silent-follow path that skips the feed",
+    gallery: [
+      { src: "/images/projects/somo/hero.png", alt: "SoMo architecture overview — REST writes, Socket.io fan-out, Cloudinary media" }
+    ],
     tagline: "A MERN social platform built to handle real-time likes/comments and a custom database schema for 'Silent Follows'.",
     description: "A full-featured social platform built from scratch to understand MERN scaling, authentication flows, and real-time database challenges. It supports posts, nested comments, profile management, and a custom data model for silent follows.",
     category: "Full Stack",
@@ -236,20 +253,26 @@ export const projects: Project[] = [
       futureImprovements: [
         "Add push notifications for engagement events.",
         "Expand Silent Follow with user-facing controls and analytics."
-      ]
+      ],
+      liveUrl: "https://somo-two.vercel.app",
+      githubUrl: "https://github.com/Vivek-1499/SoMo"
     }
   },
   {
     id: "saveior",
     title: "Saveior — AI Finance Tracker",
-    imageUrl: "", // Add path to your project image here (e.g. "/projects/saveior.jpg")
+    imageUrl: "/images/projects/saveior/hero.png",
+    imageAlt: "Saveior pipeline: receipt image in, Gemini Vision extraction, PostgreSQL store, monthly email out",
+    gallery: [
+      { src: "/images/projects/saveior/hero.png", alt: "Saveior receipt-to-report pipeline with Arcjet and Inngest" }
+    ],
     tagline: "An AI-driven expense parser that uses LLMs to automate receipt data extraction and background queues for scheduled monthly reports.",
     description: "A Next.js 14 finance app built to eliminate manual expense logging. It uses Gemini Vision to parse uploaded receipt images, features Arcjet for rate-limiting, and utilizes Inngest background jobs for sending monthly automated reports.",
     category: "AI",
-    techStack: ["Next.js 14", "Prisma", "PostgreSQL", "Google Gemini API", "Arcjet", "Inngest", "Clerk Auth", "Vercel"],
+    techStack: ["Next.js 14", "Prisma", "PostgreSQL", "Supabase", "Google Gemini API", "Arcjet", "Inngest", "Clerk Auth", "Vercel"],
     duration: "2025",
     role: "Creator & Full-Stack Developer",
-    status: "Completed",
+    status: "Live",
     impactMetric: "100% manual transaction data-entry eliminated",
     highlights: [
       "Built a smart finance app that auto-extracts receipt data via Google Gemini Vision API, eliminating 100% of manual transaction data-entry.",
@@ -265,7 +288,7 @@ export const projects: Project[] = [
         flow: [
           "User uploads receipt image via Next.js frontend",
           "Google Gemini Vision API extracts transaction data automatically",
-          "Parsed data stored in PostgreSQL via Prisma ORM",
+          "Parsed data stored in PostgreSQL via Prisma ORM (Supabase)",
           "Arcjet validates requests — bot detection and rate-limiting",
           "Inngest schedules monthly report generation events",
           "Automated email reports delivered via Resend integration"
@@ -300,7 +323,144 @@ export const projects: Project[] = [
       futureImprovements: [
         "Add multi-currency support and budget alerts.",
         "Expand receipt parsing to support additional document formats."
-      ]
+      ],
+      liveUrl: "https://saveior.vercel.app",
+      githubUrl: "https://github.com/Vivek-1499/Saveior"
+    }
+  },
+  {
+    id: "sql-data-warehouse",
+    title: "Data Warehouse & Analytics",
+    imageUrl: "/images/projects/sql-data-warehouse/hero.png",
+    imageAlt: "Medallion architecture diagram: Bronze CSV ingest, Silver cleansing, Gold star schema of customers, products, and sales",
+    gallery: [
+      { src: "/images/projects/sql-data-warehouse/hero.png", alt: "Star schema with Customer, Product, and Sales fact views over Bronze/Silver/Gold layers" }
+    ],
+    tagline: "An end-to-end MySQL 8.0 warehouse using Medallion Architecture to turn ERP and CRM CSVs into a star-schema analytical model.",
+    description: "Designed and built a data warehouse in MySQL 8.0 that consolidates ERP and CRM sales data. ETL stored procedures move raw CSVs through Bronze → Silver cleansing, then Gold-layer dimension and fact views power SQL analytics and data-quality checks.",
+    category: "Backend",
+    techStack: ["MySQL 8.0", "SQL", "Stored Procedures", "ETL", "Star Schema", "Medallion Architecture"],
+    duration: "2026",
+    role: "Creator & Data Engineer",
+    status: "Completed",
+    impactMetric: "Bronze → Silver → Gold warehouse in MySQL 8.0",
+    highlights: [
+      "Designed an end-to-end warehouse using Medallion Architecture (Bronze, Silver, Gold), consolidating ERP and CRM sales data into a unified star-schema model.",
+      "Wrote ETL pipelines as MySQL stored procedures to ingest, cleanse, deduplicate, and validate raw CSV data.",
+      "Built Gold-layer dimension/fact views (Customer, Product, Sales) with SQL analytics and quality checks for duplicate keys, nulls, and referential integrity."
+    ],
+    detail: {
+      problem: "ERP and CRM sales data lived in raw CSVs with duplicates, nulls, and inconsistent keys — unusable for analytics until it was modeled, cleaned, and checked.",
+      solution: "Implemented Medallion Architecture in MySQL 8.0: Bronze for raw ingest, Silver stored procedures for cleansing and validation, Gold views for Customer/Product/Sales star-schema analytics.",
+      architecture: {
+        title: "Medallion Warehouse Flow",
+        description: "How ERP/CRM CSVs become queryable Gold-layer facts and dimensions.",
+        flow: [
+          "Raw ERP and CRM CSV files land in the Bronze layer",
+          "Stored procedures ingest, cleanse, deduplicate, and validate into Silver",
+          "Gold layer exposes Customer, Product, and Sales dimension/fact views",
+          "Star-schema model supports SQL analytics across sales",
+          "Quality checks catch duplicate keys, nulls, and broken referential integrity"
+        ]
+      },
+      decisions: [
+        {
+          question: "Why Medallion Architecture instead of a single cleaned table?",
+          choice: "Bronze / Silver / Gold",
+          reasoning: "Keeping raw Bronze data lets you re-run cleansing. Silver is the contract for quality; Gold is the analytical shape analysts actually query."
+        },
+        {
+          question: "Why stored procedures for ETL?",
+          choice: "MySQL stored procedures",
+          reasoning: "The warehouse lives entirely in MySQL 8.0 — procedures keep ingest, cleansing, and validation next to the data without a separate orchestration stack."
+        }
+      ],
+      challenges: [
+        {
+          title: "Dirty source CSVs",
+          cause: "ERP and CRM exports disagreed on keys, contained duplicates, and had nulls that would break fact/dimension joins.",
+          solution: "Silver-layer procedures for deduplication and validation, plus Gold-layer checks for duplicate keys, nulls, and referential integrity.",
+          learning: "A warehouse is only as trustworthy as the checks you run before analysts hit Gold."
+        }
+      ],
+      bugs: [],
+      performance: [
+        "Star-schema Gold views keep analytical queries on Customer, Product, and Sales facts instead of scanning raw CSVs."
+      ],
+      lessonsLearned: "Layered ETL (raw → cleaned → modeled) is more honest than pretending source exports are analytics-ready.",
+      futureImprovements: [
+        "Add scheduled refresh of Bronze ingest.",
+        "Expose Gold views to a BI tool for visual reporting."
+      ],
+      githubUrl: "https://github.com/Vivek-1499/sql-data-warehouse-project"
+    }
+  },
+  {
+    id: "ai-portfolio-agent",
+    title: "Self-Correcting AI Portfolio Agent",
+    imageUrl: "/images/projects/ai-portfolio-agent/hero.png",
+    imageAlt: "Cyclical LangGraph agent: classify query, FAISS search, Self-RAG grade, then Groq/OpenAI/Gemini fallback",
+    gallery: [
+      { src: "/images/projects/ai-portfolio-agent/hero.png", alt: "LangGraph state machine with FAISS, Self-RAG grading, DuckDuckGo fallback, and a 3-tier LLM cascade" }
+    ],
+    tagline: "A LangGraph agent that grades its own retrieval, falls back to the web, and keeps answering when one LLM provider rate-limits.",
+    description: "A cyclical LangGraph state machine with dynamic query classification, FAISS vector search, and Self-RAG document relevance grading. Live web fallback via DuckDuckGo and a Groq → OpenAI → Google Gemini cascade keep the Streamlit UI answering when a provider is down.",
+    category: "AI",
+    techStack: ["LangGraph", "LangChain", "Groq", "FAISS", "Streamlit"],
+    duration: "2026",
+    role: "Creator",
+    status: "Completed",
+    impactMetric: "3-tier LLM fallback for 99.9% uptime under rate limits",
+    highlights: [
+      "Engineered a cyclical state machine in LangGraph with dynamic query classification, FAISS vector search, and Self-RAG relevance grading to reduce hallucinations.",
+      "Integrated live web fallback via DuckDuckGo and a 3-tier LLM cascade (Groq → OpenAI → Google Gemini) to keep answering during rate limits.",
+      "Deployed a Streamlit UI with real-time state execution tracing so intermediate reasoning steps are visible."
+    ],
+    detail: {
+      problem: "Single-pass RAG chatbots hallucinate when retrieved docs are irrelevant, and they go dark when one LLM provider hits a rate limit.",
+      solution: "Built a LangGraph cycle that classifies the query, searches FAISS, grades document relevance (Self-RAG), and can fall back to DuckDuckGo. Providers cascade Groq → OpenAI → Gemini. Streamlit traces each state.",
+      architecture: {
+        title: "Cyclical Agent Runtime",
+        description: "Query classification, retrieval, grading, and provider fallback as explicit graph states.",
+        flow: [
+          "Incoming question is classified dynamically",
+          "FAISS vector search retrieves candidate documents",
+          "Self-RAG grades document relevance before answering",
+          "If retrieval is weak, DuckDuckGo live web fallback runs",
+          "LLM calls cascade Groq → OpenAI → Google Gemini on failure/rate limits",
+          "Streamlit UI traces intermediate graph states in real time"
+        ]
+      },
+      decisions: [
+        {
+          question: "Why LangGraph instead of a linear LangChain chain?",
+          choice: "Cyclical LangGraph state machine",
+          reasoning: "Classification, retrieval, grading, and web fallback are loops — a graph makes those retries explicit instead of hiding them in a prompt."
+        },
+        {
+          question: "How to stay up when Groq rate-limits?",
+          choice: "Groq → OpenAI → Gemini cascade",
+          reasoning: "A 3-tier provider fallback keeps the agent answering during rate limits rather than failing the whole session."
+        }
+      ],
+      challenges: [
+        {
+          title: "Hallucinations from weak retrieval",
+          cause: "Vector search can return documents that don't actually answer the question.",
+          solution: "Self-RAG relevance grading before generation, plus DuckDuckGo when local docs fail.",
+          learning: "Retrieval without a grade is just a confident wrong answer with citations."
+        }
+      ],
+      bugs: [],
+      performance: [
+        "3-tier LLM fallback (Groq → OpenAI → Google Gemini) used to keep 99.9% uptime during rate limits."
+      ],
+      lessonsLearned: "Agent reliability is a systems problem: grade retrieval, fall back to the web, and don't bet the product on one inference API.",
+      futureImprovements: [
+        "Expose the same graph behind an API instead of only Streamlit.",
+        "Add evaluation traces for grading false positives."
+      ],
+      githubUrl: "https://github.com/Vivek-1499/AI-portfolio-agent"
     }
   }
 ];
@@ -324,13 +484,13 @@ export const skills: SkillCategory[] = [
       {
         name: "Python",
         level: "Intermediate",
-        description: "Scripting, data workflows, and automation.",
-        whyILikeIt: "Quick to prototype and integrate with data tools."
+        description: "Scripting, data workflows, automation, and the LangGraph/Streamlit agent stack.",
+        whyILikeIt: "Quick to prototype and integrate with data and LLM tools."
       },
       {
         name: "SQL",
         level: "Advanced",
-        description: "Relational queries, schema design, and indexing.",
+        description: "Relational queries, schema design, indexing, and warehouse-style ETL in MySQL.",
         whyILikeIt: "The foundation for any data-driven application."
       }
     ]
@@ -357,10 +517,10 @@ export const skills: SkillCategory[] = [
         whyILikeIt: "Powers Saveior with production auth, security, and scheduling."
       },
       {
-        name: "Tailwind CSS",
+        name: "HTML5 / CSS3 / Tailwind",
         level: "Advanced",
-        description: "Utility-first styling, responsive layouts, and design tokens.",
-        whyILikeIt: "Fast iteration without stylesheet bloat."
+        description: "Semantic markup, responsive layouts, utility-first styling, and design tokens.",
+        whyILikeIt: "Fast iteration without stylesheet bloat — and CSS that survives a design-token handoff."
       }
     ]
   },
@@ -380,9 +540,9 @@ export const skills: SkillCategory[] = [
         whyILikeIt: "Architected production P2P video for 10+ concurrent peers."
       },
       {
-        name: "MongoDB / PostgreSQL",
+        name: "MongoDB / PostgreSQL / MySQL",
         level: "Advanced",
-        description: "NoSQL and relational databases with schema design and Prisma ORM.",
+        description: "NoSQL and relational databases — schema design, Prisma ORM, and MySQL warehouse layers.",
         whyILikeIt: "Right database for the right data shape."
       },
       {
@@ -390,6 +550,35 @@ export const skills: SkillCategory[] = [
         level: "Intermediate",
         description: "Type-safe database access, migrations, and schema modeling.",
         whyILikeIt: "Prevents invalid queries and speeds up backend changes."
+      }
+    ]
+  },
+  {
+    category: "AI & Data",
+    skills: [
+      {
+        name: "LangGraph / LangChain",
+        level: "Intermediate",
+        description: "Cyclical agent graphs, query classification, and Self-RAG grading loops.",
+        whyILikeIt: "Makes retrieval retries and fallbacks visible instead of burying them in a prompt."
+      },
+      {
+        name: "Gemini / Groq / FAISS",
+        level: "Intermediate",
+        description: "Vision extraction, fast inference, and vector search used in Saveior and the portfolio agent.",
+        whyILikeIt: "Practical LLM tooling — receipts in, graded answers out."
+      },
+      {
+        name: "ETL / Star Schema",
+        level: "Intermediate",
+        description: "Medallion Architecture, stored-procedure ETL, and Gold-layer facts/dimensions in MySQL 8.0.",
+        whyILikeIt: "Analytics only works if Bronze stays raw and Gold stays honest."
+      },
+      {
+        name: "Streamlit",
+        level: "Exploring",
+        description: "Interactive UIs for tracing agent state while the graph executes.",
+        whyILikeIt: "Fastest way to show what the agent is actually doing."
       }
     ]
   },
@@ -409,16 +598,16 @@ export const skills: SkillCategory[] = [
         whyILikeIt: "Production-quality patterns without reinventing infrastructure."
       },
       {
-        name: "Agile / Scrum",
-        level: "Advanced",
-        description: "Sprint cycles, cross-functional collaboration, and iterative delivery.",
-        whyILikeIt: "Shipped GPMS features across multiple sprint cycles with a 6-engineer team."
+        name: "Vercel / Postman",
+        level: "Intermediate",
+        description: "Shipping frontends and APIs, then exercising REST endpoints before they hit production.",
+        whyILikeIt: "Deploy and verify in the same afternoon."
       },
       {
-        name: "System Design / REST APIs",
+        name: "Agile / REST / System Design",
         level: "Intermediate",
-        description: "API design, MVC architecture, networking fundamentals, and real-time systems.",
-        whyILikeIt: "Connects coursework theory to production architecture decisions."
+        description: "Sprint cycles, REST API design, OOP, real-time systems, networking, and DBMS.",
+        whyILikeIt: "Connects coursework theory to production architecture decisions — including a 6-engineer GPMS team."
       }
     ]
   }
@@ -443,7 +632,7 @@ export const achievements: Achievement[] = [
     date: "2022 – 2026",
     description: "Relevant coursework in DSA, Operating Systems, DBMS, Computer Networks, and AI/ML.",
     details: [
-      "GPA: 8.52 / 10",
+      "GPA: 8.75 / 10",
       "Coursework: Data Structures & Algorithms, Operating Systems, DBMS, Computer Networks, AI/ML"
     ]
   },
@@ -491,4 +680,4 @@ export const achievements: Achievement[] = [
   }
 ];
 
-export const projectCategories = ['All', 'Full Stack', 'AI'] as const;
+export const projectCategories = ['All', 'Full Stack', 'AI', 'Backend'] as const;

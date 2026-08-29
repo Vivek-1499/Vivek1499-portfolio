@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Send, CheckCircle, RotateCcw, Clapperboard } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, RotateCcw, Clapperboard, Sparkles } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import { SEO } from '../components/SEO';
 
@@ -99,6 +99,28 @@ export function Contact() {
                     ))}
                   </div>
                 </div>
+
+                {/* Instant AI Assistant Card */}
+                {personalInfo.aiAssistantUrl && (
+                  <div className="p-5 bg-gradient-to-br from-studio-amber/15 via-studio-card/90 to-studio-card/60 border border-studio-amber/40 rounded-lg">
+                    <h3 className="mono-code text-xs text-studio-amber uppercase mb-2 tracking-widest font-semibold flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-studio-amber animate-pulse" />
+                      Portfolio AI Assistant
+                    </h3>
+                    <p className="text-xs text-studio-muted mb-4 font-sans leading-relaxed">
+                      Have questions about my projects, system design, or work experience? Query my AI assistant directly.
+                    </p>
+                    <a
+                      href={personalInfo.aiAssistantUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-studio-amber text-studio-black font-semibold text-xs tracking-wider uppercase rounded hover:bg-studio-gold transition-colors font-mono"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Launch AI Assistant</span>
+                    </a>
+                  </div>
+                )}
 
                 {/* Contact list */}
                 <ul className="space-y-4 font-mono text-xs">
