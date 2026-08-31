@@ -8,7 +8,7 @@ import { StudioMic } from '../components/StudioMic';
 
 export function About() {
   const [activeMilestone, setActiveMilestone] = useState<number | null>(null);
-  
+
   // Inception reality fold toggle state
   const [isInceptionFolded, setIsInceptionFolded] = useState(false);
 
@@ -29,19 +29,19 @@ export function About() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-16">
-            <span className="kicker block mb-3">
-              About
-            </span>
-            <h1 className="title-serif text-4xl md:text-6xl text-studio-cream">
-              Vivek, off the resume
-            </h1>
+          <span className="kicker block mb-3">
+            About
+          </span>
+          <h1 className="title-serif text-4xl md:text-6xl text-studio-cream">
+            Vivek
+          </h1>
           <div className="w-20 h-[2px] bg-studio-amber mt-4" />
         </div>
 
         {/* Narrative Introduction - Hollywood Screenplay Script Layout */}
         <section className="mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* Screenplay block */}
             <div className="lg:col-span-8 border border-studio-border p-6 sm:p-8 space-y-5 text-studio-cream/90 leading-relaxed max-w-2xl">
               <div className="text-studio-amber text-xs font-mono border-b border-studio-border/50 pb-3 mb-4 flex items-center gap-2">
@@ -55,7 +55,7 @@ export function About() {
                 </p>
 
                 <p className="text-studio-muted font-sans text-base">
-                  During my internship at <span className="text-studio-cream font-medium">Mehery Soccom</span>, I architected a production P2P video-calling platform using Vue.js and Node.js. ICE negotiation, STUN/TURN fallbacks, and network transitions had to stay coordinated or the call dropped. We got setups down to sub-second speeds and cut Vue Composition API re-renders by about 35%.
+                  During my internship at <span className="text-studio-cream font-medium">Mehery Soccom</span>, I architected a production P2P video-calling platform using Vue.js and Node.js. ICE negotiation and network transitions had to stay coordinated or the call dropped. We got setups down to sub-second speeds and cut Vue Composition API re-renders by about 35%.
                 </p>
 
                 <p className="text-studio-muted font-sans text-base">
@@ -63,14 +63,14 @@ export function About() {
                 </p>
 
                 <p className="text-studio-muted font-sans text-base">
-                  When I'm not interning, I build side projects to solve my own problems. I built <span className="text-studio-cream font-medium">Saveior</span>, a finance tracker that uses Gemini Vision to auto-extract receipt data, <span className="text-studio-cream font-medium">SoMo</span>, a MERN social platform with sub-100ms real-time engagement, a <span className="text-studio-cream font-medium">MySQL data warehouse</span> (Medallion / star schema), and a <span className="text-studio-cream font-medium">LangGraph agent</span> that grades retrieved docs before it answers.
+                  When I'm not interning, I build side projects to solve real-world problems. I built <span className="text-studio-cream font-medium">SyncStreamHub</span>, a real-time collaborative watch party platform with Spring Boot & WebSockets, <span className="text-studio-cream font-medium">Saveior</span>, a finance tracker that uses Gemini Vision to auto-extract receipt data, <span className="text-studio-cream font-medium">SoMo</span>, a MERN social platform with sub-100ms real-time engagement, a <span className="text-studio-cream font-medium">MySQL data warehouse</span> (Medallion / star schema), and a <span className="text-studio-cream font-medium">LangGraph agent</span> that grades retrieved docs before it answers.
                 </p>
 
                 <p className="text-studio-muted font-sans text-base">
-                  Outside of coding, I'm a cinematography enthusiast, a playlist curator, and a constant reader of technical docs.
+                  Outside of coding, I like wahcing Movies/TV-Series/Anime, listen musics and reading books/manga.
                 </p>
               </div>
-              
+
               <div className="border-t border-studio-border/50 pt-3 flex justify-between text-[8px] text-studio-muted select-none">
                 <span>SCENE 01</span>
                 <span>TAKE 02</span>
@@ -128,7 +128,7 @@ export function About() {
 
           {/* Inception 3D Folding Crease Container */}
           <div className="relative my-8" style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}>
-            
+
             {/* Warning overlay on inversion */}
             {isInceptionFolded && (
               <div className="absolute inset-0 z-30 bg-studio-black/20 backdrop-blur-[0.5px] pointer-events-none flex items-center justify-center">
@@ -155,11 +155,10 @@ export function About() {
                     {/* Bullet point indicator */}
                     <button
                       onClick={() => setActiveMilestone(isActive ? null : index)}
-                      className={`absolute left-[-38px] top-1.5 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                        isActive
-                          ? 'bg-studio-amber border-studio-amber scale-125'
-                          : 'bg-studio-black border-studio-border hover:border-studio-amber/60'
-                      }`}
+                      className={`absolute left-[-38px] top-1.5 w-4 h-4 rounded-full border-2 transition-all duration-300 ${isActive
+                        ? 'bg-studio-amber border-studio-amber scale-125'
+                        : 'bg-studio-black border-studio-border hover:border-studio-amber/60'
+                        }`}
                       aria-expanded={isActive}
                       aria-label={`Expand timeline details for ${item.year}`}
                     />
@@ -193,13 +192,13 @@ export function About() {
                         className="mt-4 p-4 bg-studio-card/85 border border-studio-border rounded-lg text-xs text-studio-muted leading-relaxed font-sans max-w-2xl"
                       >
                         {index === 0 && (
-                          <span>Dived headfirst into programming architectures. Learned standard internet layers, HTTP lifecycles, and spent nights debugging responsive layout panels and basic Javascript event listeners.</span>
+                          <span>Dived headfirst into programming architectures. Learned standard internet layers, HTTP lifecycles, built my core engineering skills.</span>
                         )}
                         {index === 1 && (
-                          <span>Joined my first developer internship at MeshCraft. Handled analytics charts, migrated legacy components to Vite, and learned context boundaries to stop UI render lag while working on live node grids.</span>
+                          <span>Joined my first ever Hackathon with my college teammates a total of 6 members. It was a wonderful experience and got the confidence that we can build a real world solution.</span>
                         )}
                         {index === 2 && (
-                          <span>Landed a full stack internship at CommonWealth. Designed secure AWS upload flows, optimized PostgreSQL indexes, and developed collaborative spreadsheet synchronization models using WebSockets.</span>
+                          <span>Landed my first ever internship at MeshCraft leanred a lot about frontend development and working in a team.</span>
                         )}
                       </motion.div>
                     )}
@@ -236,11 +235,10 @@ export function About() {
                     {/* Bullet point indicator */}
                     <button
                       onClick={() => setActiveMilestone(isActive ? null : timelineIdx)}
-                      className={`absolute left-[-38px] top-1.5 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                        isActive
-                          ? 'bg-studio-amber border-studio-amber scale-125'
-                          : 'bg-studio-black border-studio-border hover:border-studio-amber/60'
-                      }`}
+                      className={`absolute left-[-38px] top-1.5 w-4 h-4 rounded-full border-2 transition-all duration-300 ${isActive
+                        ? 'bg-studio-amber border-studio-amber scale-125'
+                        : 'bg-studio-black border-studio-border hover:border-studio-amber/60'
+                        }`}
                       aria-expanded={isActive}
                       aria-label={`Expand timeline details for ${item.year}`}
                     />
@@ -274,10 +272,10 @@ export function About() {
                         className="mt-4 p-4 bg-studio-card/85 border border-studio-border rounded-lg text-xs text-studio-muted leading-relaxed font-sans max-w-2xl"
                       >
                         {timelineIdx === 3 && (
-                          <span>Spearheaded a production WebRTC calling pipeline at Mehery. fine-tuned ICE candidate generation pathways to bypass NAT/firewall blocks, reducing call connection drops by 42%.</span>
+                          <span>Got my second Internship at CommonWealth this was a huge opportunity as worked on a real world SaaS project and aside from this built 2 full-stack projects along with the academics </span>
                         )}
                         {timelineIdx === 4 && (
-                          <span>Exploring distributed scaling parameters, WebRTC SFUs, custom shaders, and WebGL environments. Looking to join a product-focused engineering team where craftsmanship matters.</span>
+                          <span>Did Internship at Mehery learned a lot about Real time applicaiton WebRTC & apart from this built Syncstreamhub and a my personal Portfolio and portfolio-AI agent. Have my graduation this year and looking for oppurtunity to work as a full stack devloper </span >
                         )}
                       </motion.div>
                     )}
@@ -354,7 +352,7 @@ export function About() {
             <div className="bg-studio-dark/50 border border-studio-border p-5 rounded">
               <h4 className="mono-code text-[10px] text-studio-amber uppercase mb-2 tracking-wider font-semibold">Books & Docs</h4>
               <p className="text-xs text-studio-muted font-sans leading-relaxed">
-                Reading system architecture articles, open-source documentation, and technical journals. Keeping up with modern specifications is a habit.
+                Reading Books and manga getting perspective on new thing challenging the way I think and broadens my horizons. Like One Piece, 1984, Classroom of the Elite
               </p>
             </div>
           </div>

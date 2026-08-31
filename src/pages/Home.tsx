@@ -92,7 +92,7 @@ export function Home() {
     <div className="relative min-h-screen bg-studio-black overflow-hidden page-enter-opacity">
       <SEO
         title="Home"
-        description="Vivek Kumar Pandit — Full Stack Developer in Mumbai. WebRTC at Mehery, GPMS at CommonWealth, plus SoMo, Saveior, a MySQL warehouse, and a LangGraph agent."
+        description="Vivek Kumar Pandit — Full Stack Developer in Mumbai. WebRTC at Mehery, GPMS at CommonWealth, plus SyncStreamHub, SoMo, Saveior, a MySQL warehouse, and a LangGraph agent."
         ogType="profile"
         schema={{
           '@context': 'https://schema.org',
@@ -388,9 +388,9 @@ export function Home() {
                     initial: { opacity: 0, x: 50 },
                     whileInView: { opacity: 1, x: 0, transition: { duration: 0.6, ease: easing } }
                   }}
-                  className="film-frame w-[310px] sm:w-[380px] flex flex-col justify-between overflow-hidden border border-studio-border"
+                  className="film-frame w-[310px] sm:w-[380px] flex flex-col justify-between overflow-hidden group"
                 >
-                  <div className="h-44 relative border-b border-studio-border">
+                  <div className="h-44 relative border-b border-studio-border/30">
                     <ProjectMedia project={project} eager={i === 0} sizes="380px" className="opacity-90" />
                     <div className="absolute top-3 right-4 px-2 py-0.5 border border-studio-amber/40 bg-studio-black/90 text-[10px] font-mono text-studio-amber">
                       {project.category}
@@ -478,15 +478,15 @@ export function Home() {
           {/* Toolkit Snapshot */}
           <motion.div {...fadeInUp} className="flex flex-col justify-between">
             <div>
-            <span className="kicker block mb-3">
-              Stack
-            </span>
-            <h2 className="title-serif text-2xl md:text-4xl text-studio-cream mb-8">
-              What I actually use
-            </h2>
+              <span className="kicker block mb-3">
+                Stack
+              </span>
+              <h2 className="title-serif text-2xl md:text-4xl text-studio-cream mb-8">
+                What I actually use
+              </h2>
 
               <p className="text-sm text-studio-muted leading-relaxed mb-8 font-sans">
-                Picked from internships and the four projects above — not a laundry list of every tutorial.
+                Picked from internships and the projects above — not a laundry list of every tutorial.
               </p>
 
               {/* Grid of categories */}
@@ -647,10 +647,10 @@ export function Home() {
         <div className="max-w-2xl mx-auto">
           <motion.div {...fadeInUp}>
             <h2 className="title-serif text-3xl md:text-5xl text-studio-cream mb-6">
-              Hiring or building something real-time?
+              Want to connect or Hiring?
             </h2>
             <p className="text-studio-muted text-base mb-10 leading-relaxed font-sans max-w-md mx-auto">
-              I am looking for Software / Backend / Full-Stack internship and entry-level roles. Email is faster than the form.
+              Currently I am looking for Software / Backend / Full-Stack internship / AI and entry-level roles.
             </p>
             <Link
               to="/contact"

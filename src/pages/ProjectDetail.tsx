@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, ExternalLink, ShieldCheck, Cpu, Code, HelpCircle } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ExternalLink, ShieldCheck, Cpu, Code, HelpCircle, Maximize2 } from 'lucide-react';
 import { projects } from '../data/portfolioData';
 import { SEO } from '../components/SEO';
+import { ImageLightboxModal } from '../components/ImageLightboxModal';
 
 export function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
@@ -11,6 +12,10 @@ export function ProjectDetail() {
 
   // Active architecture step selection
   const [activeArchStep, setActiveArchStep] = useState<number>(0);
+
+  // Image lightbox modal state
+  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [activeLightboxIndex, setActiveLightboxIndex] = useState<number>(0);
 
   useEffect(() => {
     // If project id is invalid, send user back to projects list
@@ -26,11 +31,35 @@ export function ProjectDetail() {
   // Find related projects to show at bottom ("Continue Watching")
   const relatedProjects = projects.filter((p) => p.id !== project.id);
 
+  const slides = [
+    { title: 'FRAME 01 // INTERFACE MOCK', desc: 'Main user control dashboard layout.', img: detail.screenshots?.[0] },
+    { title: 'FRAME 02 // PIPELINE ARCHITECTURE', desc: 'Data-flow diagram and messaging brokers.', img: detail.screenshots?.[1] },
+    { title: 'FRAME 03 // DB SCHEMATICS', desc: 'Normalized tables, keys, and indexes.', img: detail.screenshots?.[2] }
+  ];
+
+  const lightboxImages = slides
+    .filter((slide) => Boolean(slide.img))
+    .map((slide) => ({
+      src: slide.img as string,
+      title: slide.title,
+      desc: slide.desc,
+      alt: `${project.title} - ${slide.title}`,
+    }));
+
   return (
     <div className="relative min-h-screen bg-studio-black pt-28 pb-16 px-6 page-enter-opacity">
       <SEO
         title={`${project.title} Case Study`}
         description={project.tagline}
+      />
+
+      <ImageLightboxModal
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        images={lightboxImages}
+        currentIndex={activeLightboxIndex}
+        onNavigate={setActiveLightboxIndex}
+        projectTitle={project.title}
       />
 
       <div className="max-w-4xl mx-auto">
@@ -106,28 +135,56 @@ export function ProjectDetail() {
         <section className="mb-16">
           <div className="horizontal-film-roll rounded-lg overflow-x-auto no-scrollbar scroll-smooth">
             <div className="flex gap-6 min-w-max px-2 py-4">
-              {[
-                { title: 'FRAME 01 // INTERFACE MOCK', desc: 'Main user control dashboard layout.', img: detail.screenshots?.[0] },
-                { title: 'FRAME 02 // PIPELINE ARCHITECTURE', desc: 'Data-flow diagram and messaging brokers.', img: detail.screenshots?.[1] },
-                { title: 'FRAME 03 // DB SCHEMATICS', desc: 'Normalized tables, keys, and indexes.', img: detail.screenshots?.[2] }
-              ].map((slide, idx) => (
-                <div key={idx} className="film-frame w-72 h-44 flex flex-col justify-between p-4 bg-studio-black text-center border border-studio-border relative rounded select-none overflow-hidden group">
+              {slides.map((slide, idx) => (
+                <div
+                  key={idx}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    if (slide.img) {
+                      setActiveLightboxIndex(idx);
+                      setIsLightboxOpen(true);
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if ((e.key === 'Enter' || e.key === ' ') && slide.img) {
+                      e.preventDefault();
+                      setActiveLightboxIndex(idx);
+                      setIsLightboxOpen(true);
+                    }
+                  }}
+                  className="film-frame w-72 h-44 flex flex-col justify-between p-4 bg-studio-black text-center relative rounded select-none overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-studio-amber"
+                  title="Click to view full image in cinema lightbox"
+                >
                   <div className="absolute top-2 left-2 right-2 flex justify-between text-[7px] font-mono text-studio-muted z-10">
                     <span>{slide.title}</span>
                     <span>SCENE: 0{idx + 1}</span>
                   </div>
+
                   {slide.img ? (
-                    <img 
-                      src={slide.img} 
-                      alt={slide.title} 
-                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-opacity duration-300"
-                    />
+                    <>
+                      <img 
+                        src={slide.img} 
+                        alt={slide.title} 
+                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-105 transition-all duration-300"
+                      />
+                      {/* Hover Inspect Overlay */}
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-all duration-300 z-20">
+                        <div className="p-2 rounded-full bg-studio-amber text-black shadow-lg mb-1.5 transform scale-90 group-hover:scale-100 transition-transform">
+                          <Maximize2 className="w-4 h-4" />
+                        </div>
+                        <span className="text-[8px] font-mono text-studio-cream tracking-wider uppercase font-semibold bg-black/80 px-2 py-0.5 rounded border border-white/15">
+                          Inspect &amp; Zoom
+                        </span>
+                      </div>
+                    </>
                   ) : (
                     <div className="flex-grow flex flex-col items-center justify-center pt-2">
                       <svg className="w-8 h-8 text-studio-amber/20 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                       <span className="text-[7.5px] font-mono text-studio-amber/80 tracking-widest mt-1">[ FILM FRAME PROJECTED IMAGE ]</span>
                     </div>
                   )}
+
                   <span className="text-[8px] font-mono text-studio-muted leading-tight z-10 bg-studio-black/80 p-1 rounded">
                     {slide.desc}
                   </span>

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0a09"/>
+      <stop offset="50%" stop-color="#12100e"/>
+      <stop offset="100%" stop-color="#090807"/>
+    </linearGradient>
+    <filter id="glowAmber" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)" />
+  
+  <!-- Subtle Grid Pattern -->
+  <g stroke="rgba(228, 201, 160, 0.04)" stroke-width="1">
+    <line x1="0" y1="120" x2="1920" y2="120"/>
+    <line x1="0" y1="240" x2="1920" y2="240"/>
+    <line x1="0" y1="360" x2="1920" y2="360"/>
+    <line x1="0" y1="480" x2="1920" y2="480"/>
+    <line x1="0" y1="600" x2="1920" y2="600"/>
+    <line x1="0" y1="720" x2="1920" y2="720"/>
+    <line x1="0" y1="840" x2="1920" y2="840"/>
+    <line x1="0" y1="960" x2="1920" y2="960"/>
+    
+    <line x1="240" y1="0" x2="240" y2="1080"/>
+    <line x1="480" y1="0" x2="480" y2="1080"/>
+    <line x1="720" y1="0" x2="720" y2="1080"/>
+    <line x1="960" y1="0" x2="960" y2="1080"/>
+    <line x1="1200" y1="0" x2="1200" y2="1080"/>
+    <line x1="1440" y1="0" x2="1440" y2="1080"/>
+    <line x1="1680" y1="0" x2="1680" y2="1080"/>
+  </g>
+
+  <!-- Title Header -->
+  <text x="960" y="90" fill="#e4c9a0" font-family="'Space Grotesk', system-ui, sans-serif" font-size="34" font-weight="700" text-anchor="middle" letter-spacing="4">SOMO // MONGODB DATA MODEL &amp; SCHEMA RELATIONS</text>
+  <line x1="760" y1="120" x2="1160" y2="120" stroke="#c4922a" stroke-width="2" />
+
+  <!-- CARD 1: USER SCHEMA -->
+  <g transform="translate(120, 180)">
+    <rect width="480" height="380" rx="12" fill="#141210" stroke="#c4922a" stroke-width="2" filter="url(#glowAmber)"/>
+    <rect width="480" height="60" rx="12" fill="#1f1a14" />
+    <text x="30" y="40" fill="#fde68a" font-family="monospace" font-size="20" font-weight="700">Collection: users</text>
+    <text x="420" y="40" fill="#c4922a" font-family="monospace" font-size="14" text-anchor="end">[NoSQL Document]</text>
+    
+    <g font-family="monospace" font-size="15" fill="#e4c9a0" transform="translate(30, 95)">
+      <text y="0"><tspan fill="#f59e0b">_id:</tspan> ObjectId <tspan fill="#9ca3af">(PK)</tspan></text>
+      <text y="35"><tspan fill="#f59e0b">username:</tspan> String <tspan fill="#9ca3af">[unique, index]</tspan></text>
+      <text y="70"><tspan fill="#f59e0b">email:</tspan> String <tspan fill="#9ca3af">[unique]</tspan></text>
+      <text y="105"><tspan fill="#f59e0b">passwordHash:</tspan> String</text>
+      <text y="140"><tspan fill="#f59e0b">avatarUrl:</tspan> String</text>
+      <text y="175"><tspan fill="#f59e0b">bio:</tspan> String</text>
+      <text y="210"><tspan fill="#f59e0b">followersCount:</tspan> Number</text>
+      <text y="245"><tspan fill="#f59e0b">createdAt:</tspan> ISODate</text>
+    </g>
+  </g>
+
+  <!-- CARD 2: POST SCHEMA -->
+  <g transform="translate(720, 180)">
+    <rect width="480" height="460" rx="12" fill="#141210" stroke="#38bdf8" stroke-width="2" filter="url(#glowCyan)"/>
+    <rect width="480" height="60" rx="12" fill="#0f212e" />
+    <text x="30" y="40" fill="#bae6fd" font-family="monospace" font-size="20" font-weight="700">Collection: posts</text>
+    <text x="420" y="40" fill="#38bdf8" font-family="monospace" font-size="14" text-anchor="end">[Real-Time Feed]</text>
+    
+    <g font-family="monospace" font-size="15" fill="#e4c9a0" transform="translate(30, 95)">
+      <text y="0"><tspan fill="#38bdf8">_id:</tspan> ObjectId <tspan fill="#9ca3af">(PK)</tspan></text>
+      <text y="35"><tspan fill="#38bdf8">authorId:</tspan> ObjectId <tspan fill="#9ca3af">-> users._id</tspan></text>
+      <text y="70"><tspan fill="#38bdf8">content:</tspan> String <tspan fill="#9ca3af">(Max 500 chars)</tspan></text>
+      <text y="105"><tspan fill="#38bdf8">mediaUrl:</tspan> String <tspan fill="#9ca3af">(Cloudinary CDN)</tspan></text>
+      <text y="140"><tspan fill="#38bdf8">likes:</tspan> Array&lt;ObjectId&gt; <tspan fill="#9ca3af">(User IDs)</tspan></text>
+      <text y="175"><tspan fill="#38bdf8">likesCount:</tspan> Number <tspan fill="#9ca3af">[Indexed]</tspan></text>
+      <text y="210"><tspan fill="#38bdf8">commentCount:</tspan> Number</text>
+      <text y="245"><tspan fill="#38bdf8">tags:</tspan> Array&lt;String&gt;</text>
+      <text y="280"><tspan fill="#38bdf8">createdAt:</tspan> ISODate <tspan fill="#9ca3af">[Indexed -1]</tspan></text>
+      <text y="315"><tspan fill="#38bdf8">isArchived:</tspan> Boolean</text>
+    </g>
+  </g>
+
+  <!-- CARD 3: COMMENT SCHEMA -->
+  <g transform="translate(1320, 180)">
+    <rect width="480" height="380" rx="12" fill="#141210" stroke="#34d399" stroke-width="2"/>
+    <rect width="480" height="60" rx="12" fill="#0f261e" />
+    <text x="30" y="40" fill="#a7f3d0" font-family="monospace" font-size="20" font-weight="700">Collection: comments</text>
+    <text x="420" y="40" fill="#34d399" font-family="monospace" font-size="14" text-anchor="end">[Nested Thread]</text>
+    
+    <g font-family="monospace" font-size="15" fill="#e4c9a0" transform="translate(30, 95)">
+      <text y="0"><tspan fill="#34d399">_id:</tspan> ObjectId <tspan fill="#9ca3af">(PK)</tspan></text>
+      <text y="35"><tspan fill="#34d399">postId:</tspan> ObjectId <tspan fill="#9ca3af">-> posts._id [Index]</tspan></text>
+      <text y="70"><tspan fill="#34d399">authorId:</tspan> ObjectId <tspan fill="#9ca3af">-> users._id</tspan></text>
+      <text y="105"><tspan fill="#34d399">parentId:</tspan> ObjectId <tspan fill="#9ca3af">(Optional self-ref)</tspan></text>
+      <text y="140"><tspan fill="#34d399">text:</tspan> String</text>
+      <text y="175"><tspan fill="#34d399">likes:</tspan> Array&lt;ObjectId&gt;</text>
+      <text y="210"><tspan fill="#34d399">depthLevel:</tspan> Number</text>
+      <text y="245"><tspan fill="#34d399">createdAt:</tspan> ISODate</text>
+    </g>
+  </g>
+
+  <!-- CARD 4: SILENT FOLLOW SCHEMA (NOVEL RELATIONSHIP MODEL) -->
+  <g transform="translate(420, 680)">
+    <rect width="1080" height="340" rx="12" fill="#161310" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,6"/>
+    <rect width="1080" height="55" rx="12" fill="#261e14" />
+    <text x="40" y="38" fill="#fbbf24" font-family="monospace" font-size="20" font-weight="700">Novel Architecture: follows (Custom Silent Follow Data Model)</text>
+    <text x="1040" y="38" fill="#f59e0b" font-family="monospace" font-size="14" text-anchor="end">[Decoupled Feed &amp; Graph]</text>
+    
+    <g transform="translate(40, 85)" font-family="monospace" font-size="15" fill="#e4c9a0">
+      <text y="0"><tspan fill="#f59e0b">_id:</tspan> ObjectId, <tspan fill="#f59e0b">followerId:</tspan> ObjectId (-> users._id), <tspan fill="#f59e0b">followingId:</tspan> ObjectId (-> users._id)</text>
+      <text y="35"><tspan fill="#ef4444" font-weight="700">isSilent:</tspan> Boolean <tspan fill="#9ca3af">(When true: updates follower graph without delivering posts into user's active feed)</tspan></text>
+      <text y="70"><tspan fill="#f59e0b">compoundIndex:</tspan> { followerId: 1, followingId: 1 } <tspan fill="#9ca3af">[Unique Constraint]</tspan></text>
+      <text y="105"><tspan fill="#f59e0b">feedQueryIndex:</tspan> { followerId: 1, isSilent: 1 } <tspan fill="#9ca3af">[Optimized aggregation pipeline for feed distribution]</tspan></text>
+    </g>
+
+    <!-- Visual explanation pill -->
+    <rect x="40" y="230" width="1000" height="75" rx="8" fill="#0c0a09" stroke="rgba(228, 201, 160, 0.15)" stroke-width="1"/>
+    <text x="60" y="262" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="14">💡 <tspan fill="#fde68a" font-weight="600">Engineering Detail:</tspan> By storing `isSilent` flag directly in the follow relationship and building a compound index, feed queries filter out silent follows in sub-10ms without performing secondary document joins.</text>
+  </g>
+
+  <!-- Connective Arrows -->
+  <path d="M 600 370 L 720 370" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowAmber)"/>
+  <path d="M 1200 370 L 1320 370" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,4"/>
+  <path d="M 360 560 L 360 800 L 420 800" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,4"/>
+</svg>

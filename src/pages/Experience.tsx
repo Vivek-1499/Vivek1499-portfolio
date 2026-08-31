@@ -206,8 +206,8 @@ export function Experience() {
               { phase: "Phase 1", year: "2022", focus: "Frontend Basics", tech: "HTML / CSS / JS" },
               { phase: "Phase 2", year: "2023", focus: "Component State", tech: "React / Redux / Tailwind" },
               { phase: "Phase 3", year: "2024", focus: "Full Stack Pipelines", tech: "Node / Express / MongoDB" },
-              { phase: "Phase 4", year: "2025", focus: "Real-Time Streaming", tech: "WebRTC / Sockets / Redis" },
-              { phase: "Phase 5", year: "Current", focus: "Scaling & Shaders", tech: "Next.js / Docker / WebGL" }
+              { phase: "Phase 4", year: "2025", focus: "Real-Time Streaming", tech: "Next.js / Docker/ Java" },
+              { phase: "Phase 5", year: "Current", focus: "Scaling & Shaders", tech: "WebRTC / Sockets / Redis" }
             ].map((step, idx) => (
               <div key={idx} className="bg-studio-dark/50 border border-studio-border/60 p-5 rounded text-center">
                 <span className="mono-code text-[8px] text-studio-amber block uppercase tracking-widest mb-1">{step.phase}</span>

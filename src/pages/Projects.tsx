@@ -20,7 +20,7 @@ export function Projects() {
     <div className="relative min-h-screen bg-studio-black pt-28 pb-16 px-6 page-enter-opacity">
       <SEO
         title="Engineering Projects"
-        description="Review engineering case studies for SoMo and Saveior — full-stack and AI-powered projects by Vivek Pandit."
+        description="Review engineering case studies for SyncStreamHub, SoMo, Saveior, and more — full-stack, distributed, and AI-powered projects by Vivek Pandit."
       />
 
       <div className="max-w-6xl mx-auto">
@@ -68,7 +68,7 @@ export function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.5, ease: easing }}
-                className="film-frame flex flex-col justify-between rounded overflow-hidden border border-studio-border bg-studio-dark/50 hover:border-studio-amber/40 transition-colors group"
+                className="film-frame flex flex-col justify-between rounded overflow-hidden bg-studio-dark/50 group"
               >
                 {/* Sprocket Film Frame Image Placeholder */}
                 <div className="h-44 bg-studio-black relative overflow-hidden border-b border-studio-black flex flex-col justify-end p-5">

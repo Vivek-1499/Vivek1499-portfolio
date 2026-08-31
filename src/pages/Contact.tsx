@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Send, CheckCircle, RotateCcw, Clapperboard, Sparkles } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, RotateCcw, Clapperboard, Sparkles, AlertCircle, ExternalLink } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import { SEO } from '../components/SEO';
 
@@ -10,26 +10,61 @@ export function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   
   // End Credits activation state
   const [showCredits, setShowCredits] = useState(false);
   const [showBeginText, setShowBeginText] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
-    // Simulate database write
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+        setFormData({ name: '', email: '', message: '' });
+
+        // Automatically trigger cinematic credits after successful message delivery!
+        setTimeout(() => {
+          triggerCredits();
+        }, 1500);
+      } else {
+        setIsSubmitting(false);
+        setErrorMessage(
+          result.error || result.message || 'Failed to deliver message via Resend. Please check your setup or use the direct email button below.'
+        );
+      }
+    } catch {
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
+      setErrorMessage(
+        'Unable to connect to email endpoint. Please reach out directly using the email button below.'
+      );
+    }
+  };
 
-      // Automatically trigger cinematic credits after successful message delivery!
-      setTimeout(() => {
-        triggerCredits();
-      }, 1500);
-    }, 1200);
+  const handleDirectEmailFallback = () => {
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name || 'Visitor'}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
   };
 
   const triggerCredits = () => {
@@ -201,16 +236,37 @@ export function Contact() {
                     />
                   </div>
 
+                  {/* Error Alert / Fallback */}
+                  {errorMessage && (
+                    <div className="p-3 bg-red-950/40 border border-red-500/40 rounded text-red-300 space-y-2">
+                      <div className="flex items-start gap-2">
+                        <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                        <span className="text-[11px] leading-relaxed">{errorMessage}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleDirectEmailFallback}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-900/50 hover:bg-red-800/60 border border-red-500/50 rounded text-[10px] font-mono uppercase tracking-wider text-white transition-colors cursor-pointer"
+                      >
+                        <span>Send via Email Client</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Honeypot field for bot protection */}
+                  <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+
                   <button
                     type="submit"
                     disabled={isSubmitting || submitSuccess}
                     className="flex items-center justify-center gap-2 w-full py-3 bg-studio-amber text-studio-black rounded text-xs tracking-widest uppercase font-semibold hover:bg-studio-gold disabled:opacity-50 transition-all cursor-pointer duration-300"
                   >
                     {isSubmitting ? (
-                      <span>Broadcasting...</span>
+                      <span>Broadcasting to Inbox...</span>
                     ) : submitSuccess ? (
-                      <span className="flex items-center gap-1.5">
-                        <CheckCircle className="w-4 h-4" /> Message Delivered
+                      <span className="flex items-center gap-1.5 text-emerald-950 font-bold">
+                        <CheckCircle className="w-4 h-4" /> Message Delivered to Inbox
                       </span>
                     ) : (
                       <>
@@ -221,8 +277,12 @@ export function Contact() {
                   </button>
                 </form>
 
+                <p className="mt-3 text-[10px] text-studio-muted font-mono text-center">
+                  Direct dispatch to <span className="text-studio-cream">{personalInfo.email}</span>
+                </p>
+
                 {/* Explicit trigger credits button */}
-                <div className="mt-8 border-t border-studio-border/30 pt-4 text-center">
+                <div className="mt-6 border-t border-studio-border/30 pt-4 text-center">
                   <button
                     onClick={triggerCredits}
                     className="text-[10px] font-mono uppercase tracking-widest text-studio-muted hover:text-studio-amber transition-colors cursor-pointer"
