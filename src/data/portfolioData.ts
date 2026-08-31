@@ -281,7 +281,7 @@ export const projects: Project[] = [
   },
   {
     id: "ai-portfolio-agent",
-    title: "Self-Correcting AI Portfolio Agent",
+    title: "AI Portfolio Agent",
     imageUrl: "/images/projects/ai-portfolio-agent/hero.png",
     imageAlt: "Cyclical LangGraph agent: classify query, FAISS search, Self-RAG grade, then Groq/OpenAI/Gemini fallback",
     gallery: [
@@ -346,6 +346,7 @@ export const projects: Project[] = [
         "Expose the same graph behind an API instead of only Streamlit.",
         "Add evaluation traces for grading false positives."
       ],
+      liveUrl: "https://vivek1499-ai.streamlit.app/",
       githubUrl: "https://github.com/Vivek-1499/AI-portfolio-agent",
       screenshots: [
         "/images/projects/ai-portfolio-agent/screenshot-01.png",
