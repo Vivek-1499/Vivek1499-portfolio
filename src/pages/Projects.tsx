@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Film } from 'lucide-react';
 import { projects, projectCategories } from '../data/portfolioData';
 import { SEO } from '../components/SEO';
 
 export function Projects() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<string>('All');
 
   const categories = [...projectCategories];
@@ -68,7 +69,8 @@ export function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.5, ease: easing }}
-                className="film-frame flex flex-col justify-between rounded overflow-hidden bg-studio-dark/50 group"
+                onClick={() => navigate(`/projects/${project.id}`)}
+                className="film-frame flex flex-col justify-between rounded overflow-hidden bg-studio-dark/50 group cursor-pointer"
               >
                 {/* Sprocket Film Frame Image Placeholder */}
                 <div className="h-44 bg-studio-black relative overflow-hidden border-b border-studio-black flex flex-col justify-end p-5">
@@ -129,6 +131,7 @@ export function Projects() {
 
                     <Link
                       to={`/projects/${project.id}`}
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center justify-between w-full py-2.5 border border-studio-border hover:border-studio-amber/40 rounded text-center text-[10px] tracking-widest uppercase text-studio-cream hover:text-studio-amber hover:bg-studio-black transition-all duration-300 font-semibold"
                     >
                       <span className="pl-3">Explore Case Study</span>
