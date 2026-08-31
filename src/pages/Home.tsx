@@ -10,8 +10,8 @@ import { usePortfolioPreferences } from '../context/PortfolioPreferences';
 const ThreeHeroCanvas = lazy(() => import('../components/ThreeHeroCanvas'));
 
 export function Home() {
-  const { skipCinematicIntro } = usePortfolioPreferences();
-  const [isClapped, setIsClapped] = useState(skipCinematicIntro);
+  const { skipCinematicIntro, hasClappedIntro, setHasClappedIntro } = usePortfolioPreferences();
+  const [isClapped, setIsClapped] = useState(hasClappedIntro || skipCinematicIntro);
   const [clapperSnapping, setClapperSnapping] = useState(false);
 
   // Playable Projects Tape Deck States
@@ -26,14 +26,17 @@ export function Home() {
   const easing = [0.16, 1, 0.3, 1] as any;
 
   useEffect(() => {
-    if (skipCinematicIntro) setIsClapped(true);
-  }, [skipCinematicIntro]);
+    if (skipCinematicIntro || hasClappedIntro) {
+      setIsClapped(true);
+    }
+  }, [skipCinematicIntro, hasClappedIntro]);
 
   const handleClapperClick = () => {
     setClapperSnapping(true);
 
     setTimeout(() => {
       setIsClapped(true);
+      setHasClappedIntro(true);
       setClapperSnapping(false);
     }, 450);
   };

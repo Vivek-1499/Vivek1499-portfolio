@@ -3,12 +3,15 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from '
 type PortfolioPreferences = {
   prefersReducedMotion: boolean;
   skipCinematicIntro: boolean;
-}
+  hasClappedIntro: boolean;
+  setHasClappedIntro: (val: boolean) => void;
+};
 
 const PortfolioPreferencesContext = createContext<PortfolioPreferences | null>(null);
 
 export function PortfolioPreferencesProvider({ children }: { children: ReactNode }) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [hasClappedIntro, setHasClappedIntro] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -23,6 +26,8 @@ export function PortfolioPreferencesProvider({ children }: { children: ReactNode
       value={{
         prefersReducedMotion,
         skipCinematicIntro: prefersReducedMotion,
+        hasClappedIntro,
+        setHasClappedIntro,
       }}
     >
       {children}
